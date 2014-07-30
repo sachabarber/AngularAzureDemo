@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+
+<h2>Sketcher Actions</h2>
+
+<div class="well">
+    <div class="row">
+        <p class="col-xs-12 col-sm-8 col-md-8">
+            <label class="labeller">Stroke Color:</label>
+            <input colorpicker type="text" ng-model="strokeColor" />
+        </p>
+        <p class="col-xs-12 col-sm-8 col-md-8">
+            <label class="labeller">Stroke Width:</label>
+            <input type="range" min="3" max="30" ng-model="strokeWidth">
+        </p>
+        <p class="col-xs-12 col-sm-8 col-md-8">
+            <label class="labeller">Title:</label>
+            <input type="text" maxlength="30" ng-model="title">
+        </p>
+        <p class="col-xs-12 col-sm-8 col-md-8">
+            <canvas class="drawingSurface"
+                    stroke-color='strokeColor'
+                    stroke-width='strokeWidth'
+                    update-controller="acceptCanvas(canvasArg)"
+                    ng-model='firstCanvas'
+                    draw></canvas>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <p class="col-xs-12 col-sm-8 col-md-8">
+        <button ng-click='firstCanvas = ""' class="btn btn-default">CLEAR</button>
+        <button type="button" class="btn btn-primary" data-ng-click="save()">SAVE</button>
+    </p>
+</div>
