@@ -4,29 +4,26 @@
 
 <h2>View All</h2>
 
-
-
 <div class="well">
-    <table class="storedBlobWithCommentsTable">
-        <tr ng-repeat="row in tableItems">
-            <td ng-repeat="cell in row" >
-                
-                @*<br />
-                <span>Title : {{cell.Blob.Title}}</span>
-                <br />
-                <span>Created On : {{cell.Blob.CreatedOn | date:'dd-MM-yyyy'}}</span>
-                <br />
-                <span>Created By : {{cell.Blob.UserName}}</span>
-                <br />*@
-                
-                
-
-                <img src="~/Images/Info.png" class="img-responsive results" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(cell.Blob)}}">
-                <span><span class="badge">{{cell.Comments.length}}</span> Comments</span>
-                <img ng-src="{{cell.Blob.SavedBlobUrl}}" class="img-responsive" alt="Responsive image" />
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        
+        
+        <div ng-repeat="tableItem in tableItems" class="col-xs-12 col-sm-6 col-md-4">
+            <div class="resultItem">
+                <div class="header">
+                    <span>
+                        <img src="~/Images/Info.png" class="img-responsive resultsImage resultHeaderItems" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(tableItem.Blob)}}">
+                        <span class="badge resultHeaderItems">{{tableItem.Comments.length}}</span>
+                    </span>
+                </div>
+                <p>
+                    <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive" alt="Responsive image" />
+                </p>
+            </div>
+        </div>
+        
+    </div>
 </div>
+
 
 

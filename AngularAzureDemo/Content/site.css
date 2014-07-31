@@ -43,18 +43,44 @@
 
 
 
-.storedBlobWithCommentsTable > tr > td { 
-    margin: 40px;
-    border: 1px solid transparent;
-}
 
 
-.storedBlobWithCommentsTable > tr > td :hover {
-    border: 1px solid darkgray;
-}
+
 
 
 .tooltip-inner {
     white-space:pre;
     max-width:none;
 }
+
+
+.resultItem  { 
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+    border: 1px solid transparent;
+}
+
+
+.resultItem:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+    border: 1px solid darkgray;
+}
+
+
+.header {
+    color: black;
+    height: 22px;
+}
+
+.resultHeaderItems {
+    float: left;
+    margin: 2px;
+}
+
+.resultsImage {
+    margin: 3px;
+}
+
+
+

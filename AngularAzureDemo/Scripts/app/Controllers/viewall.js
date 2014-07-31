@@ -34,7 +34,18 @@
                     dialogService.hidePleaseWait();
                     dialogService.showAlert('Info', 'There are no items stored right now');
                 } else {
-                    createTableOfResults(result.BlobComments);
+                    //createTableOfResults(result.BlobComments);
+
+                    $scope.tableItems = result.BlobComments;
+
+
+                   
+
+                    setTimeout(function () {
+                        $('.resultsImage').tooltip();
+                    }, 1);
+
+                    dialogService.hidePleaseWait();
                 }
 
             }, function (error) {
@@ -42,32 +53,6 @@
                 dialogService.showAlert('Error', 'Unable to load stored image data: ' + error.message);
             });
         }
-
-
-        function createTableOfResults(blobComments) {
-            var maxRows = Math.ceil(blobComments.length / $scope.columnCount);
-            if (blobComments.length < $scope.columnCount) {
-                $scope.tableItems[0] = [];
-                for (var i = 0; i < blobComments.length; i++) {
-                    $scope.tableItems[0].push(blobComments[i]);
-                }
-            } else {
-                var originalIndexCounter = 0;
-                for (var r = 0; r < maxRows; r++) {
-                    for (var c = 0; c < $scope.columnCount; c++) {
-                        if (originalIndexCounter < blobComments.length) {
-                            $scope.tableItems[r][c] = blobComments[originalIndexCounter];
-                            originalIndexCounter++;
-                        }
-                    }
-                }
-            }
-            setTimeout(function () {
-                $('.results').tooltip();
-            }, 1);
-            dialogService.hidePleaseWait();
-        }
-
 
         $scope.showBlogTooltip = function (blog) {
             return 'Created On :' + blog.CreatedOnPreFormatted +
