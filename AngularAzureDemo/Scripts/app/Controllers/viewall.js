@@ -42,7 +42,7 @@
                    
 
                     setTimeout(function () {
-                        $('.resultsImage').tooltip();
+                        $('.infoIcon').tooltip();
                     }, 1);
 
                     dialogService.hidePleaseWait();

@@ -12,12 +12,12 @@
             <div class="resultItem">
                 <div class="header">
                     <span>
-                        <img src="~/Images/Info.png" class="img-responsive resultsImage resultHeaderItems" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(tableItem.Blob)}}">
+                        <img src="~/Images/Info.png" class="img-responsive infoIcon resultHeaderItems" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(tableItem.Blob)}}">
                         <span class="badge resultHeaderItems">{{tableItem.Comments.length}}</span>
                     </span>
                 </div>
                 <p>
-                    <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive" alt="Responsive image" />
+                    <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive resultsImage" alt="Responsive image" />
                 </p>
             </div>
         </div>
