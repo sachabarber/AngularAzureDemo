@@ -11,4 +11,4 @@
    usage : var allFriendsSubscriptionsCookie = $cookieStore.get('allFriendsSubscriptions');
 
 
-3. Do the animating of the views : http://scotch.io/tutorials/javascript/animating-angularjs-apps-ngview
+3. Do the   animating of the views : http://scotch.io/tutorials/javascript/animating-angularjs-apps-ngview
