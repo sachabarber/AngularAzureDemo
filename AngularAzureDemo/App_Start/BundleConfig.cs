@@ -21,6 +21,7 @@ namespace AngularAzureDemo
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
+                        "~/Scripts/angular-cookies.js",
                         "~/Scripts/angular-ng-grid.js",
                         "~/Scripts/angular-resource.js",
                         "~/Scripts/angular-route.js"));

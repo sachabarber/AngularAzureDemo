@@ -1,0 +1,11 @@
+1. fix the table layout stuff to be a using Bootstrap grid
+2. Allow comments to be added (this may require a new route where we pass in the blog url)
+3. Create some new SignalR stuff that will also use the current users subscriptions (which can be read from cookie, see subscriptions, and
+   https://docs.angularjs.org/api/ngCookies/service/$cookieStore)
+
+
+   dependency
+
+   '$cookieStore'
+
+   usage : var allFriendsSubscriptionsCookie = $cookieStore.get('allFriendsSubscriptions');

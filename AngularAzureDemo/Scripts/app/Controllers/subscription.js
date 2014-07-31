@@ -1,6 +1,6 @@
-﻿angular.module('main').controller('SubscriptionsController', ['$scope', '$log', '$window', '$location', 'loginService',
+﻿angular.module('main').controller('SubscriptionsController', ['$scope', '$log', '$window', '$location', 'loginService','$cookieStore',
     'userService', 'dialogService', 'userSubscription',
-    function ($scope, $log, $window, $location, loginService, userService, dialogService, userSubscription) {
+    function ($scope, $log, $window, $location, loginService, $cookieStore, userService, dialogService, userSubscription) {
 
         if (!loginService.isLoggedIn()) {
             $location.path("login");
@@ -75,6 +75,11 @@
                 }
 
                 $scope.allFriendsSubscriptions = $scope.storedSubscriptions;
+
+                $cookieStore.put('allFriendsSubscriptions', $scope.allFriendsSubscriptions);
+                var allFriendsSubscriptionsCookie = $cookieStore.get('allFriendsSubscriptions');
+
+
                 $scope.hasSubscriptions = true;
                 dialogService.hidePleaseWait();
             }, function (error) {
