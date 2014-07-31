@@ -2,23 +2,23 @@
     Layout = null;
 }
 
-<h2>View All</h2>
-
+<br/>
 <div class="well">
+    <h2>Latest Sketches</h2>
     <div class="row">
-        
-        
-        <div ng-repeat="tableItem in tableItems" class="col-xs-12 col-sm-6 col-md-4">
+        <div ng-repeat="tableItem in tableItems" class="col-xs-12 col-sm-3 col-md-2">
             <div class="resultItem">
-                <div class="header">
-                    <span>
-                        <img src="~/Images/Info.png" class="img-responsive infoIcon resultHeaderItems" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(tableItem.Blob)}}">
-                        <span class="badge resultHeaderItems">{{tableItem.Comments.length}}</span>
-                    </span>
+                <div class="resultItemInner">
+                    <div class="header">
+                        <span>
+                            <img src="~/Images/Info.png" class="img-responsive infoIcon resultHeaderItems" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(tableItem.Blob)}}">
+                            <span class="badge resultHeaderItems">{{tableItem.Comments.length}}</span>
+                        </span>
+                    </div>
+                    <p>
+                        <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive resultsImage" alt="Responsive image" />
+                    </p>
                 </div>
-                <p>
-                    <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive resultsImage" alt="Responsive image" />
-                </p>
             </div>
         </div>
         

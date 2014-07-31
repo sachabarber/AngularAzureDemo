@@ -22,7 +22,7 @@
 
 .drawingSurface {
     border-bottom: 1px solid rgba(0,0,0,0.3);
-    background-color: whitesmoke;
+    background-color: white;
     box-shadow: 0 9px 20px -5px rgba(0,0,0,0.8);
 }
 
@@ -64,6 +64,11 @@
     opacity: 1.0;
     filter: alpha(opacity=100);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    background-color: white;
+}
+
+.resultItemInner {
+    margin: 10px;
 }
 
 .header {
@@ -95,5 +100,8 @@
   filter: alpha(opacity=100);
 }
 
+h2 {
+    color: #6495ed;
+}
 
 
