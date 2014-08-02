@@ -211,9 +211,12 @@
     <Content Include="Images\banners.png" />
     <Content Include="Images\Bootstrap.png" />
     <Content Include="Images\draw.png" />
+    <Content Include="Images\drawHover.png" />
     <Content Include="Images\Info.png" />
     <Content Include="Images\subscriptions.png" />
+    <Content Include="Images\subscriptionsHover.png" />
     <Content Include="Images\viewAll.png" />
+    <Content Include="Images\viewAllHover.png" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />

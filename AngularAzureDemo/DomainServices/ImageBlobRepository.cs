@@ -145,6 +145,7 @@ namespace AngularAzureDemo.DomainServices
                             UserId = int.Parse(x.PartitionKey),
                             UserName = x.UserName,
                             SavedBlobUrl = x.BlobUrl,
+                            Id = x.Id,
                             Title = x.Title,
                             CreatedOn = DateTime.Parse(x.CreatedOn)
                         }).ToList();

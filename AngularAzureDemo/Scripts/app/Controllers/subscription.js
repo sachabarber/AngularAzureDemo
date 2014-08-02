@@ -18,9 +18,7 @@
 
         dialogService.showPleaseWait();
         getAllFriends(loginService.currentlyLoggedInUser().Id);
-
-
-      
+     
 
         function getAllFriends(id) {
             userService.getFriends(id)

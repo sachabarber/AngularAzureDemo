@@ -34,17 +34,7 @@
                     dialogService.hidePleaseWait();
                     dialogService.showAlert('Info', 'There are no items stored right now');
                 } else {
-                    //createTableOfResults(result.BlobComments);
-
                     $scope.tableItems = result.BlobComments;
-
-
-                   
-
-                    setTimeout(function () {
-                        $('.infoIcon').tooltip();
-                    }, 1);
-
                     dialogService.hidePleaseWait();
                 }
 
@@ -54,8 +44,11 @@
             });
         }
 
-        $scope.showBlogTooltip = function (blog) {
-            return 'Created On :' + blog.CreatedOnPreFormatted +
-                '\x0A\x0DCreated By :' + blog.UserName;
+
+        $scope.getTitle = function (blog) {
+            $log.log("single blog", blob);
+
+            return 'Title:' + Blob.Title;
         }
+
     }]);

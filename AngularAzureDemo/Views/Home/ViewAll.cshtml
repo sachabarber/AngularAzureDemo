@@ -9,15 +9,14 @@
         <div ng-repeat="tableItem in tableItems" class="col-xs-12 col-sm-3 col-md-2">
             <div class="resultItem">
                 <div class="resultItemInner">
-                    <div class="header">
-                        <span>
-                            <img src="~/Images/Info.png" class="img-responsive infoIcon resultHeaderItems" alt="Responsive image" data-toggle="tooltip" data-placement="bottom" title="{{ showBlogTooltip(tableItem.Blob)}}">
-                            <span class="badge resultHeaderItems">{{tableItem.Comments.length}}</span>
-                        </span>
+                    <div class="titleInner">
+                        <span class="smallText">Title:</span><span class="smallText">{{tableItem.Blob.Title}}</span>
+                        <div class="spacer"></div>
+                        <span class="smallText">Comments:</span><span class="smallText">{{tableItem.Comments.length}}</span>
                     </div>
-                    <p>
+                    <div class="imgHolder">
                         <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive resultsImage" alt="Responsive image" />
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
