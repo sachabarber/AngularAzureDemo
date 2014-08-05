@@ -22,28 +22,20 @@
 
         $scope.save = function () {
             if (typeof $scope.canvasData !== 'undefined' && $scope.canvasData != null) {
-                
-                var imageBlogsToSave = [];
 
-                imageBlogsToSave.push(
-                {
-                    "UserId": loginService.currentlyLoggedInUser().Id,
-                    "UserName": loginService.currentlyLoggedInUser().Name,
-                    "CanvasData": $scope.canvasData,
-                    "Title": $scope.title,
-                    "CreatedOn" : new Date()
-                });
-                
-                $log.log('imageBlogsToSave', imageBlogsToSave);
+                var imageBlobToSave = {
+                        "UserId": loginService.currentlyLoggedInUser().Id,
+                        "UserName": loginService.currentlyLoggedInUser().Name,
+                        "CanvasData": $scope.canvasData,
+                        "Title": $scope.title,
+                        "CreatedOn" : new Date()
+                };
 
-                var imageBlogs = {
-                    Blobs: imageBlogsToSave
-                }
+                imageBlob.save(imageBlobToSave, function (result) {
 
-                imageBlob.save(imageBlogs, function (result) {
                     $log.log('save blobs result : ', result);
                     if (result) {
-                        dialogService.showAlert('Sucess','Sucessfully saved image data');
+                        dialogService.showAlert('Success','Sucessfully saved image data');
                     } else {
                         dialogService.showAlert('Error','Unable to save image data');
                     }

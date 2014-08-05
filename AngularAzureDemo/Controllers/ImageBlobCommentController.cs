@@ -39,19 +39,39 @@ namespace AngularAzureDemo.Controllers
         }
 
 
-        // GET api/imageblobcomment/5
+        // GET api/imageblobcomment/4E89064B-D1B1-471C-8B2F-C02B374A9676
         [System.Web.Http.HttpGet]
-        public async Task<FullImageBlobComments> Get(int id)
+        public async Task<FullImageBlobComment> Get(Guid id)
         {
-            if (id <= 0)
-                return new FullImageBlobComments();
+            if (Guid.Empty == id)
+                return new FullImageBlobComment();
 
-            // Return a list of ImageBlob objects for the selected user
-            var blobsForUsers = await imageBlobRepository.FetchBlobsForUser(id);
+            // Return a blob that matched the Id requested
+            var blob = await imageBlobRepository.FetchBlobForBlobId(id);
             //fetch all comments to form richer results
-            var fullImageBlobComments = await FetchBlobComments(blobsForUsers);
-            return fullImageBlobComments;
-           
+            var fullImageBlobComments = await FetchBlobComments(new List<ImageBlob>() {
+                blob.First()
+            });
+
+            return fullImageBlobComments.BlobComments.Any() ? 
+                fullImageBlobComments.BlobComments.First() : new FullImageBlobComment();
+        }
+
+
+        // POST api/imageblobcomment/....
+        [System.Web.Http.HttpPost]
+        public async Task<ImageBlobCommentResult> Post(ImageBlobComment imageBlobCommentToSave)
+        {
+            if (imageBlobCommentToSave == null)
+                return new ImageBlobCommentResult() { Comment = null, SuccessfulAdd = false};
+
+            if (string.IsNullOrEmpty(imageBlobCommentToSave.Comment))
+                return new ImageBlobCommentResult() { Comment = null, SuccessfulAdd = false };
+
+            // add the imageBlobComment to imageBlobComment storage/table storage
+            var insertedComment = await imageBlobCommentRepository.AddImageBlobComment(imageBlobCommentToSave);
+
+            return new ImageBlobCommentResult() { Comment = insertedComment, SuccessfulAdd = true };
         }
 
 

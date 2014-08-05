@@ -188,11 +188,12 @@
     <Compile Include="IOC\WebApiInstaller.cs" />
     <Compile Include="IOC\UnityResolver.cs" />
     <Compile Include="Models\BlobStorageResult.cs" />
+    <Compile Include="Models\ImageBlobCloudModel.cs" />
     <Compile Include="Models\ImageBlobComment.cs" />
     <Compile Include="Models\ImageBlob.cs" />
     <Compile Include="Models\FullImageBlobComment.cs" />
     <Compile Include="Models\FullImageBlobComments.cs" />
-    <Compile Include="Models\ImageBlobs.cs" />
+    <Compile Include="Models\ImageBlobCommentResult.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\UserSubscriptions.cs" />
     <Compile Include="Models\UserSubscription.cs" />

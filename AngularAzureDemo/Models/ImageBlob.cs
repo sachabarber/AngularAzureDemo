@@ -16,6 +16,8 @@ namespace AngularAzureDemo.Models
         public string CanvasData { get; set; }
         public string Title { get; set; }
         public DateTime CreatedOn { get; set; }
+        public string CreatedOnPreFormatted { get; set; }
+
 
     }
 }

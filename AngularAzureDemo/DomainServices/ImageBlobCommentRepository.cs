@@ -19,6 +19,7 @@ namespace AngularAzureDemo.DomainServices
     public interface IImageBlobCommentRepository
     {
         Task<IEnumerable<ImageBlobComment>> FetchAllCommentsForBlob(Guid associatedBlobId);
+        Task<ImageBlobComment> AddImageBlobComment(ImageBlobComment imageBlobCommentToStore);
     }
 
 
@@ -53,7 +54,7 @@ namespace AngularAzureDemo.DomainServices
             string rowKeyToUse = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 
             List<ImageBlobCommentEntity> blobCommentEntities = new List<ImageBlobCommentEntity>();
-            Expression<Func<ImageBlobCommentEntity, bool>> filter = (x) => x.AssociatedBlobId.ToString() == associatedBlobId.ToString() &&
+            Expression<Func<ImageBlobCommentEntity, bool>> filter = (x) => x.AssociatedBlobId == associatedBlobId &&
                                                                         x.RowKey.CompareTo(rowKeyToUse) > 0;
 
             Action<IEnumerable<ImageBlobCommentEntity>> processor = blobCommentEntities.AddRange;
@@ -65,7 +66,32 @@ namespace AngularAzureDemo.DomainServices
         }
 
 
+        public async Task<ImageBlobComment> AddImageBlobComment(ImageBlobComment imageBlobCommentToStore)
+        {
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable imageBlobCommentsTable = tableClient.GetTableReference("ImageBlobComments");
 
+            var tableExists = await imageBlobCommentsTable.ExistsAsync();
+            if (!tableExists)
+            {
+                await imageBlobCommentsTable.CreateIfNotExistsAsync();
+            }
+
+            ImageBlobCommentEntity imageBlobCommentEntity = new ImageBlobCommentEntity(
+                    imageBlobCommentToStore.UserId,
+                    imageBlobCommentToStore.UserName,
+                    Guid.NewGuid(),
+                    imageBlobCommentToStore.AssociatedBlobId,
+                    imageBlobCommentToStore.Comment,
+                    imageBlobCommentToStore.CreatedOn.ToShortDateString()
+                );
+
+            TableOperation insertOperation = TableOperation.Insert(imageBlobCommentEntity);
+            var result = imageBlobCommentsTable.Execute(insertOperation);
+
+
+            return ProjectToBlobComments(new List<ImageBlobCommentEntity>() {imageBlobCommentEntity}).First();
+        }
 
 
         private static List<ImageBlobComment> ProjectToBlobComments(List<ImageBlobCommentEntity> blobCommentEntities)
@@ -78,7 +104,10 @@ namespace AngularAzureDemo.DomainServices
                             Comment = x.Comment,
                             UserName = x.UserName,
                             CreatedOn = DateTime.Parse(x.CreatedOn),
-                            CreatedOnPreFormatted = DateTime.Parse(x.CreatedOn).ToShortDateString()
+                            CreatedOnPreFormatted = DateTime.Parse(x.CreatedOn).ToShortDateString(),
+                            UserId = Int32.Parse(x.PartitionKey),
+                            Id = x.Id,
+                            AssociatedBlobId = x.AssociatedBlobId
                         }).ToList();
             return blobComments;
         }

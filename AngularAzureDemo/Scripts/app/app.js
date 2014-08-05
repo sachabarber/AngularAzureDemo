@@ -2,6 +2,7 @@
 
 var appRoot = angular.module('main',
     [   'ngRoute',
+        'ngAnimate',
         'ngGrid',
         'ngResource',
         'ngCookies',
@@ -21,10 +22,9 @@ appRoot
             .when('/create', { templateUrl: '/home/create', controller: 'CreateController' })
             .when('/viewall', { templateUrl: '/home/viewall', controller: 'ViewAllController' })
             .when('/sketcheractions', { templateUrl: '/home/sketcheractions', controller: 'SketcherActionsController' })
-
             .when('/viewsingleimage/:id',
                 {
-                    templateUrl: function (params) { return '/home/viewsingleimage/' + params.id; },
+                    templateUrl: '/home/viewsingleimage',
                     controller: 'ViewSingleImageController'
                 }
             )

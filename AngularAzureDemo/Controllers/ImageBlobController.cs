@@ -23,23 +23,17 @@ namespace AngularAzureDemo.Controllers
             this.imageBlobRepository = imageBlobRepository;
         }
 
-
         // POST api/imageblob/....
         [System.Web.Http.HttpPost]
-        public async Task<bool> Post(ImageBlobs imageBlobs)
+        public async Task<bool> Post(ImageBlob imageBlob)
         {
-            var blobsToSave = imageBlobs.Blobs;
-
-            if (!blobsToSave.Any() || blobsToSave.Count() > 1)
+            if (imageBlob == null || imageBlob.CanvasData == null)
                 return false;
 
-            var blobToSave = imageBlobs.Blobs.First();
-
             // add the blob to blob storage/table storage
-            await imageBlobRepository.AddBlob(blobToSave);
+            await imageBlobRepository.AddBlob(imageBlob);
 
             return true;
-            
         }
     }
 }

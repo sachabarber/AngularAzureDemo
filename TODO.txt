@@ -1,5 +1,4 @@
-1. Maybe use some of this cool hover stuff : http://gudh.github.io/ihover/dist/ (scale up/down is cool)
-2. Allow comments to be added (this may require a new route where we pass in the blog url)
+1. Look at Comments table and adjust is so each column has these 25%, 25%, 50%
 2. Create some new SignalR stuff that will also use the current users subscriptions (which can be read from cookie, see subscriptions, and
    https://docs.angularjs.org/api/ngCookies/service/$cookieStore)
 

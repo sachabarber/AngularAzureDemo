@@ -20,34 +20,30 @@ namespace AngularAzureDemo.DomainServices
     {
         Task<IEnumerable<ImageBlob>> FetchAllBlobs();
         Task<IEnumerable<ImageBlob>> FetchBlobsForUser(int userId);
+        Task<IEnumerable<ImageBlob>> FetchBlobForBlobId(Guid id);
         Task<bool> AddBlob(ImageBlob imageBlobToStore);
     }
 
 
     public class ImageBlobRepository : IImageBlobRepository
     {
-
-        private readonly string azureStorageConnectionString;
         private readonly CloudStorageAccount storageAccount;
-        private Users users = new Users();
-        private const int LIMIT_OF_ITEMS_TO_TAKE  = 10;
+        private readonly Users users = new Users();
+        private const int limitOfItemsToTake  = 10;
 
 
         public ImageBlobRepository()
         {
-            azureStorageConnectionString = ConfigurationManager.AppSettings["azureStorageConnectionString"];
+            string azureStorageConnectionString = ConfigurationManager.AppSettings["azureStorageConnectionString"];
             storageAccount = CloudStorageAccount.Parse(azureStorageConnectionString);
         }
 
         public async Task<IEnumerable<ImageBlob>> FetchAllBlobs()
         {
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable imageBlobsTable = tableClient.GetTableReference("ImageBlobs");
-
-            var tableExists = await imageBlobsTable.ExistsAsync();
-            if (!tableExists)
+            var tableModel = await AquireTable();
+            if (!tableModel.TableExists)
             {
-                return new List<ImageBlob>();
+                return new List<ImageBlob>();    
             }
 
             List<ImageBlob> imageBlobs = new List<ImageBlob>();
@@ -62,7 +58,7 @@ namespace AngularAzureDemo.DomainServices
                                                                         x.RowKey.CompareTo(rowKeyToUse) > 0;
 
                 Action<IEnumerable<ImageBlobEntity>> processor = imageBlobEntities.AddRange;
-                await ObtainImageBlobEntities(imageBlobsTable, filter, processor);
+                await ObtainImageBlobEntities(tableModel.Table, filter, processor);
                 var projectedImages = ProjectToImageBlobs(imageBlobEntities);
                 imageBlobs.AddRange(projectedImages);
 
@@ -72,11 +68,8 @@ namespace AngularAzureDemo.DomainServices
 
         public async Task<IEnumerable<ImageBlob>> FetchBlobsForUser(int userId)
         {
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable imageBlobsTable = tableClient.GetTableReference("ImageBlobs");
-
-            var tableExists = await imageBlobsTable.ExistsAsync();
-            if (!tableExists)
+            var tableModel = await AquireTable();
+            if (!tableModel.TableExists)
             {
                 return new List<ImageBlob>();
             }
@@ -89,13 +82,28 @@ namespace AngularAzureDemo.DomainServices
                                                                         x.RowKey.CompareTo(rowKeyToUse) > 0;
 
             Action<IEnumerable<ImageBlobEntity>> processor = imageBlobEntities.AddRange;
-            await ObtainImageBlobEntities(imageBlobsTable, filter, processor);
+            await ObtainImageBlobEntities(tableModel.Table, filter, processor);
             var imageBlobs = ProjectToImageBlobs(imageBlobEntities);
-
-
             return imageBlobs;
         }
 
+        public async Task<IEnumerable<ImageBlob>> FetchBlobForBlobId(Guid id)
+        {
+            var tableModel = await AquireTable();
+            if (!tableModel.TableExists)
+            {
+                return new List<ImageBlob>();
+            }
+
+            List<ImageBlobEntity> imageBlobEntities = new List<ImageBlobEntity>();
+            Expression<Func<ImageBlobEntity, bool>> filter = (x) => x.Id == id;
+
+            Action<IEnumerable<ImageBlobEntity>> processor = imageBlobEntities.AddRange;
+            await ObtainImageBlobEntities(tableModel.Table, filter, processor);
+            var imageBlobs = ProjectToImageBlobs(imageBlobEntities);
+
+            return imageBlobs;
+        }
        
 
         public async Task<bool> AddBlob(ImageBlob imageBlobToStore)
@@ -125,14 +133,24 @@ namespace AngularAzureDemo.DomainServices
                         imageBlobToStore.CreatedOn.ToShortDateString()
                     );
 
-
                 TableOperation insertOperation = TableOperation.Insert(imageBlobEntity);
                 imageBlobsTable.Execute(insertOperation);
                
                 return true;
             }
-  
+        }
 
+        private async Task<ImageBlobCloudModel> AquireTable()
+        {
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable imageBlobsTable = tableClient.GetTableReference("ImageBlobs");
+
+            var tableExists = await imageBlobsTable.ExistsAsync();
+            return new ImageBlobCloudModel
+            {
+                TableExists = tableExists,
+                Table = imageBlobsTable
+            };
         }
 
         private static List<ImageBlob> ProjectToImageBlobs(List<ImageBlobEntity> imageBlobEntities)
@@ -147,7 +165,8 @@ namespace AngularAzureDemo.DomainServices
                             SavedBlobUrl = x.BlobUrl,
                             Id = x.Id,
                             Title = x.Title,
-                            CreatedOn = DateTime.Parse(x.CreatedOn)
+                            CreatedOn = DateTime.Parse(x.CreatedOn),
+                            CreatedOnPreFormatted = DateTime.Parse(x.CreatedOn).ToShortDateString(),
                         }).ToList();
             return imageBlobs;
         }
@@ -188,7 +207,7 @@ namespace AngularAzureDemo.DomainServices
                 var query = imageBlobsTable
                                 .CreateQuery<ImageBlobEntity>()
                                 .Where(filter)
-                                .Take(LIMIT_OF_ITEMS_TO_TAKE)
+                                .Take(limitOfItemsToTake)
                                 .AsTableQuery();
 
                 segment = await query.ExecuteSegmentedAsync(segment == null ? null : segment.ContinuationToken);

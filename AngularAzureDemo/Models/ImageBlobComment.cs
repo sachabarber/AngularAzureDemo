@@ -14,5 +14,8 @@ namespace AngularAzureDemo.Models
         public string UserName { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedOnPreFormatted { get; set; }
+        public int UserId { get; set; }
+        public Guid Id { get; set; }
+        public Guid AssociatedBlobId { get; set; }
     }
 }

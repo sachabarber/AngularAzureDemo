@@ -33,8 +33,7 @@ namespace AngularAzureDemo.Controllers
             return View();
         }
 
-
-        public ActionResult ViewSingleImage(int id)
+        public ActionResult ViewSingleImage()
         {
             return View();
         }

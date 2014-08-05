@@ -2,27 +2,29 @@
     Layout = null;
 }
 
-<br/>
-<div class="well">
-    <h2>Latest Sketches</h2>
-    <div class="row">
-        <div ng-repeat="tableItem in tableItems" class="col-xs-12 col-sm-3 col-md-2">
-            <div class="resultItem">
-                <div class="resultItemInner">
-                    <div class="titleInner">
-                        <span class="smallText">Title:</span><span class="smallText">{{tableItem.Blob.Title}}</span>
-                        <div class="spacer"></div>
-                        <span class="smallText">Comments:</span><span class="smallText">{{tableItem.Comments.length}}</span>
+<div ng-show="hasItems">
+    <br />
+    <div class="well">
+        <h2>Latest Sketches</h2>
+        <div class="row">
+            <div ng-repeat="tableItem in tableItems" class="col-xs-12 col-sm-3 col-md-2 resultTableItem">
+                <a ng-href="#/viewsingleimage/{{tableItem.Blob.Id}}">
+                    <div class="resultItem">
+                        <div class="resultItemInner">
+                            <div class="titleInner">
+                                <p><span class="smallText">Title:</span><span class="smallText">{{tableItem.Blob.Title}}</span></p>
+                                <p><span class="smallText">Comments:</span><span class="smallText">{{tableItem.Comments.length}}</span></p>
+                            </div>
+                            <div class="imgHolder">
+                                <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive resultsImage" alt="Responsive image" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="imgHolder">
-                        <img ng-src="{{tableItem.Blob.SavedBlobUrl}}" class="img-responsive resultsImage" alt="Responsive image" />
-                    </div>
-                </div>
+                </a>
             </div>
+
         </div>
-        
     </div>
 </div>
-
 
 
