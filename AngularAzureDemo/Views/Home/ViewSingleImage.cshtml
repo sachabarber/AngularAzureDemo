@@ -18,7 +18,7 @@
         </div>
         <br />
         <br />
-        <div class="row">
+        <div class="row" ng-hide="isTheirOwnImage">
             <div id="newCommentActionRow" class="col-xs-12 col-sm-12 col-md-12">
                 <h4>Add A New Comment</h4>
             </div>
@@ -28,7 +28,7 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <button type="button" class="btn btn-primary" data-ng-click="saveComment()" ng-disabled="!hasComment()">ADD</button>
             </div>
-            <br/>
+            <br />
         </div>        
         
         

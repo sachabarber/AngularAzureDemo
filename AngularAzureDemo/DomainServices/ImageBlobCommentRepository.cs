@@ -29,7 +29,7 @@ namespace AngularAzureDemo.DomainServices
         private readonly string azureStorageConnectionString;
         private readonly CloudStorageAccount storageAccount;
         private Users users = new Users();
-        private const int LIMIT_OF_ITEMS_TO_TAKE = 10;
+        private const int LIMIT_OF_ITEMS_TO_TAKE = 1000;
 
 
         public ImageBlobCommentRepository()

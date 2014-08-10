@@ -7,6 +7,8 @@ using System.Web.Mvc;
 
 using AngularAzureDemo.DomainServices;
 using AngularAzureDemo.Models;
+using AngularAzureDemo.SignalR;
+using Microsoft.AspNet.SignalR;
 
 
 namespace AngularAzureDemo.Controllers
@@ -31,9 +33,12 @@ namespace AngularAzureDemo.Controllers
                 return false;
 
             // add the blob to blob storage/table storage
-            await imageBlobRepository.AddBlob(imageBlob);
-
-            return true;
+            var storedImageBlob = await imageBlobRepository.AddBlob(imageBlob);
+            if (storedImageBlob != null)
+            {
+                BlobHub.SendFromWebApi(storedImageBlob);
+            }
+            return false;
         }
     }
 }

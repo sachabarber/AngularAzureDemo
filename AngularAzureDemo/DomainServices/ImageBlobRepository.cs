@@ -21,7 +21,7 @@ namespace AngularAzureDemo.DomainServices
         Task<IEnumerable<ImageBlob>> FetchAllBlobs();
         Task<IEnumerable<ImageBlob>> FetchBlobsForUser(int userId);
         Task<IEnumerable<ImageBlob>> FetchBlobForBlobId(Guid id);
-        Task<bool> AddBlob(ImageBlob imageBlobToStore);
+        Task<ImageBlob> AddBlob(ImageBlob imageBlobToStore);
     }
 
 
@@ -29,7 +29,7 @@ namespace AngularAzureDemo.DomainServices
     {
         private readonly CloudStorageAccount storageAccount;
         private readonly Users users = new Users();
-        private const int limitOfItemsToTake  = 10;
+        private const int LIMIT_OF_ITEMS_TO_TAKE = 1000;
 
 
         public ImageBlobRepository()
@@ -63,7 +63,10 @@ namespace AngularAzureDemo.DomainServices
                 imageBlobs.AddRange(projectedImages);
 
             }
-            return imageBlobs;
+
+            var finalImageBlobs = imageBlobs.OrderByDescending(x => x.CreatedOn).ToList();
+
+            return finalImageBlobs;
         }
 
         public async Task<IEnumerable<ImageBlob>> FetchBlobsForUser(int userId)
@@ -104,14 +107,14 @@ namespace AngularAzureDemo.DomainServices
 
             return imageBlobs;
         }
-       
 
-        public async Task<bool> AddBlob(ImageBlob imageBlobToStore)
+
+        public async Task<ImageBlob> AddBlob(ImageBlob imageBlobToStore)
         {
             BlobStorageResult blobStorageResult = await StoreImageInBlobStorage(imageBlobToStore);
             if (!blobStorageResult.StoredOk)
             {
-                return false;
+                return null;
             }
             else
             {
@@ -130,13 +133,13 @@ namespace AngularAzureDemo.DomainServices
                         Guid.NewGuid(),
                         blobStorageResult.BlobUrl,
                         imageBlobToStore.Title,
-                        imageBlobToStore.CreatedOn.ToShortDateString()
+                        imageBlobToStore.CreatedOn
                     );
 
                 TableOperation insertOperation = TableOperation.Insert(imageBlobEntity);
                 imageBlobsTable.Execute(insertOperation);
-               
-                return true;
+
+                return ProjectToImageBlobs(new List<ImageBlobEntity>() { imageBlobEntity }).First();
             }
         }
 
@@ -165,8 +168,8 @@ namespace AngularAzureDemo.DomainServices
                             SavedBlobUrl = x.BlobUrl,
                             Id = x.Id,
                             Title = x.Title,
-                            CreatedOn = DateTime.Parse(x.CreatedOn),
-                            CreatedOnPreFormatted = DateTime.Parse(x.CreatedOn).ToShortDateString(),
+                            CreatedOn = x.CreatedOn,
+                            CreatedOnPreFormatted = x.CreatedOn.ToShortDateString(),
                         }).ToList();
             return imageBlobs;
         }
@@ -207,7 +210,7 @@ namespace AngularAzureDemo.DomainServices
                 var query = imageBlobsTable
                                 .CreateQuery<ImageBlobEntity>()
                                 .Where(filter)
-                                .Take(limitOfItemsToTake)
+                                .Take(LIMIT_OF_ITEMS_TO_TAKE)
                                 .AsTableQuery();
 
                 segment = await query.ExecuteSegmentedAsync(segment == null ? null : segment.ContinuationToken);

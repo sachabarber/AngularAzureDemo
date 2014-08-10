@@ -149,16 +149,13 @@ h2 {
 
 
 .ng-enter 		{  
-	-webkit-animation: scaleUpCenter .4s ease-out both;
-	-moz-animation: scaleUpCenter .4s ease-out both;
-	animation: scaleUpCenter .4s ease-out both;
+	-webkit-animation: scaleUpCenter .8s ease-out both ;
+	-moz-animation: scaleUpCenter .8s ease-out both;
+	animation: scaleUpCenter .8s ease-out both;
     z-index: 8888;  
 }
 
 .ng-leave 		{  
-    -webkit-animation: scaleDownCenter .4s ease-in both;
-    -moz-animation: scaleDownCenter .4s ease-in both;
-	animation: scaleDownCenter .4s ease-in both;
     z-index: 9999;  
 }
 

@@ -16,8 +16,13 @@ namespace AngularAzureDemo
                         "~/Scripts/underscore.js"));
 
             bundles.Add(new StyleBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap.js"
-              ));
+                        "~/Scripts/bootstrap.js"));
+         
+            bundles.Add(new StyleBundle("~/bundles/signalr").Include(
+                        "~/Scripts/jquery.signalR-2.1.1.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/toastr").Include(
+            "~/Scripts/toastr.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
@@ -49,6 +54,7 @@ namespace AngularAzureDemo
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/colorpicker.css",
+                        "~/Content/toastr.min.css",
                         "~/Content/site.css",
                         "~/Content/ng-grid.css"));
 

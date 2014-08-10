@@ -34,6 +34,8 @@ namespace AngularAzureDemo
 
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(container);
+
+            
         }
 
     }

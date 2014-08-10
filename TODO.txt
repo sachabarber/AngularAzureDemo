@@ -1,13 +1,6 @@
-1. Look at Comments table and adjust is so each column has these 25%, 25%, 50%
-2. Create some new SignalR stuff that will also use the current users subscriptions (which can be read from cookie, see subscriptions, and
-   https://docs.angularjs.org/api/ngCookies/service/$cookieStore)
+1. Fix the navbar, it is staying open, when in small mode
+2. find out why firefox does draw
+3. Add extra property to blo that can be used for ordering in ImageBlobComment/get
 
 
-   dependency
 
-   '$cookieStore'
-
-   usage : var allFriendsSubscriptionsCookie = $cookieStore.get('allFriendsSubscriptions');
-
-
-3. Do the   animating of the views : http://scotch.io/tutorials/javascript/animating-angularjs-apps-ngview

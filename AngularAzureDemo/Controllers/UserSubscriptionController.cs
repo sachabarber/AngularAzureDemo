@@ -58,12 +58,18 @@ namespace AngularAzureDemo.Controllers
                 return false;
 
             // remove all subscriptions that user chose to remove
-            var subscriptionsToDelete = subscriptions.Where(x => !x.IsActive);
-            await userSubscriptionRepository.RemoveSubscriptions(subscriptionsToDelete.ToList());
+            var subscriptionsToDelete = subscriptions.Where(x => !x.IsActive).ToList();
+            if (subscriptionsToDelete.Any())
+            {
+                await userSubscriptionRepository.RemoveSubscriptions(subscriptionsToDelete);
+            }
 
             // add all subscriptions that user now has active
-            var subscriptionsToAdd = subscriptions.Where(x => x.IsActive);
-            await userSubscriptionRepository.AddSubscriptions(subscriptionsToAdd.ToList());
+            var subscriptionsToAdd = subscriptions.Where(x => x.IsActive).ToList();
+            if (subscriptionsToAdd.Any())
+            {
+                await userSubscriptionRepository.AddSubscriptions(subscriptionsToAdd);
+            }
 
             return true;
 

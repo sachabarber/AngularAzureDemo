@@ -1,6 +1,8 @@
-﻿angular.module('main').controller('SubscriptionsController', ['$scope', '$log', '$window', '$location', 'loginService','$cookieStore',
-    'userService', 'dialogService', 'userSubscription',
-    function ($scope, $log, $window, $location, loginService, $cookieStore, userService, dialogService, userSubscription) {
+﻿angular.module('main').controller('SubscriptionsController',
+    ['$scope', '$log', '$window', '$location', 'loginService', '$cookieStore',
+        'userService', 'dialogService', 'userSubscription',
+    function ($scope, $log, $window, $location, loginService, $cookieStore,
+        userService, dialogService, userSubscription) {
 
         if (!loginService.isLoggedIn()) {
             $location.path("login");
@@ -45,17 +47,6 @@
 
         function getAllSubscriptions(id) {
 
-            //NOTE : userSubscription.get(..) returns a promise so we could also do this
-            //and then use it as you would a regular promise, for now we will just use callbacks
-            //
-            //var userSubscriptionPromise = userSubscription.get({ id: id }).$promise;
-            //userSubscriptionPromise.then(function (result) {
-            //    $log.log('Success');
-            //}, function (error) {
-            //   $log.log('error', error);
-            //});
-
-
             userSubscription.get({ id: id }, function (result) {
 
                 var savedSubscriptions = result.Subscriptions;
@@ -75,8 +66,6 @@
                 $scope.allFriendsSubscriptions = $scope.storedSubscriptions;
 
                 $cookieStore.put('allFriendsSubscriptions', $scope.allFriendsSubscriptions);
-                var allFriendsSubscriptionsCookie = $cookieStore.get('allFriendsSubscriptions');
-
 
                 $scope.hasSubscriptions = true;
                 dialogService.hidePleaseWait();
@@ -89,7 +78,6 @@
 
 
         $scope.updateSubscriptions = function () {
-
 
             dialogService.showPleaseWait();
 
@@ -111,22 +99,11 @@
                 Subscriptions : subscriptionsToSave
             }
 
-            //NOTE : userSubscription.save(..) returns a promise so we could also do this
-            //and then use it as you would a regular promise, for now we will just use callbacks
-            //
-            //var userSubscriptionPromise = userSubscription.save(userSubscriptions).$promise;
-            //userSubscriptionPromise.then(function (result) {
-            //    $log.log('Success');
-            //}, function (error) {
-            //   $log.log('error', error);
-            //});
-
             userSubscription.save((userSubscriptions), function (result) {
                 $log.log('saveSubscriptions result : ', result);
                 if (result) {
                     dialogService.hidePleaseWait();
                     dialogService.showAlert('Success', 'Successfully saved all subscriptions');
-                    //$window.alert('Successfully saved all subscriptions');
                 } else {
                     dialogService.hidePleaseWait();
                     $window.alert('Unable to save subscription data');
@@ -136,9 +113,6 @@
                 dialogService.hidePleaseWait();
                 dialogService.showAlert('Error', 'Unable to save subscription data: ' + error.message);
             });
-
-
-
         };
 
     }]);

@@ -31,9 +31,10 @@ namespace AngularAzureDemo.Controllers
         {
             // Return a list of all ImageBlob objects 
             var blobs = await imageBlobRepository.FetchAllBlobs();
-
+            
             //fetch all comments to form richer results
             var fullImageBlobComments = await FetchBlobComments(blobs);
+
             return fullImageBlobComments;
            
         }

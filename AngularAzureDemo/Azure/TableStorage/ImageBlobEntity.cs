@@ -9,7 +9,7 @@ namespace AngularAzureDemo.Azure.TableStorage
 {
     public class ImageBlobEntity : TableEntity
     {
-        public ImageBlobEntity(int userId, string userName, Guid id, string blobUrl, string title, string createdOn)
+        public ImageBlobEntity(int userId, string userName, Guid id, string blobUrl, string title, DateTime createdOn)
         {
             this.PartitionKey = userId.ToString();
             this.RowKey = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
@@ -27,7 +27,7 @@ namespace AngularAzureDemo.Azure.TableStorage
         public Guid Id { get; set; }
         public string UserName { get; set; }
         public string BlobUrl { get; set; }
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
     }
 }
