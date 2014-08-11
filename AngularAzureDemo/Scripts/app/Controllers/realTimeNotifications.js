@@ -43,30 +43,31 @@
 
                     //show toast notification
                     var text = latestBlob.UserName + ' has just created a new image called "' +
-                        latestBlob.Title + '", click here to view it HHHHH';
+                        latestBlob.Title + '", click here to view it';
                     toastr['info'](text, "New image added");
                 }
             };
 
             //start the SignalR hub comms
-            $.connection.hub.start(
-                {
-                    transport: ['longPolling', 'webSockets'],
-                    waitForPageLoad: false
-                });
-            
+            startHubConnection();
+
             $.connection.hub.disconnected(function () {
                 $log.log('*** BlobHub Disconnected');
                 setTimeout(function () {
-                    $.connection.hub.start(
-                    {
-                        transport: ['longPolling', 'webSockets'],
-                        waitForPageLoad: false
-                    });
+                    startHubConnection();
                 }, 1000); // Restart connection after 1 seconds.
             });
-
         });
+
+
+        function startHubConnection() {
+            //start the SignalR hub comms
+            $.connection.hub.start(
+                {
+                    transport: ['webSockets', 'longPolling'],
+                    waitForPageLoad: false
+                });
+        }
 
         function navigate() {
             $rootScope.$apply(function() {
