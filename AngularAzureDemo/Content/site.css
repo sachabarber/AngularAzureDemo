@@ -167,10 +167,10 @@ h2 {
 }
 @-moz-keyframes scaleDownCenter {
 	from { }
-	to { opacity: 0; -webkit-transform: scale(.7); }
+	to { opacity: 0; -moz-transform: scale(.7); }
 }@keyframes scaleDownCenter {
 	from { }
-	to { opacity: 0; -webkit-transform: scale(.7); transform: scale(.7); }
+	to { opacity: 0; transform: scale(.7); transform: scale(.7); }
 }
 
 /* scale up center */
@@ -178,9 +178,9 @@ h2 {
 	from { opacity: 0; -webkit-transform: scale(.7); }
 }
 @-moz-keyframes scaleUpCenter {
-	from { opacity: 0; -webkit-transform: scale(.7); }
+	from { opacity: 0; -moz-transform: scale(.7); }
 }
 @keyframes scaleUpCenter {
-	from { opacity: 0; -webkit-transform: scale(.7); transform: scale(.7); }
+	from { opacity: 0; transform: scale(.7); transform: scale(.7); }
 }
 

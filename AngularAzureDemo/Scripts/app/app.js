@@ -14,14 +14,27 @@ var appRoot = angular.module('main',
 
 appRoot
     .config(['$routeProvider', function ($routeProvider) {
-        //Setup routes to load partial templates from server. TemplateUrl is the location for the server view (Razor .cshtml view)
+        //Setup routes to load partial templates from server. 
+        //TemplateUrl is the location for the server view (Razor .cshtml view)
         $routeProvider
 
             //home routes
-            .when('/subscriptions', { templateUrl: '/home/subscriptions', controller: 'SubscriptionsController' })
-            .when('/create', { templateUrl: '/home/create', controller: 'CreateController' })
-            .when('/viewall', { templateUrl: '/home/viewall', controller: 'ViewAllController' })
-            .when('/sketcheractions', { templateUrl: '/home/sketcheractions', controller: 'SketcherActionsController' })
+            .when('/subscriptions', {
+                templateUrl: '/home/subscriptions',
+                controller: 'SubscriptionsController'
+            })
+            .when('/create', {
+                templateUrl: '/home/create',
+                controller: 'CreateController'
+            })
+            .when('/viewall', {
+                templateUrl: '/home/viewall',
+                controller: 'ViewAllController'
+            })
+            .when('/sketcheractions', {
+                templateUrl: '/home/sketcheractions',
+                controller: 'SketcherActionsController'
+            })
             .when('/viewsingleimage/:id',
                 {
                     templateUrl: '/home/viewsingleimage',
@@ -30,20 +43,20 @@ appRoot
             )
 
             //account routes
-            .when('/login', { templateUrl: '/account/login', controller: 'LoginController' })
+            .when('/login', {
+                templateUrl: '/account/login',
+                controller: 'LoginController'
+            })
 
             //default
             .otherwise({ redirectTo: '/login' });
     }])
-    .controller('RootController', ['$scope', '$route', '$routeParams', '$location', function ($scope, $route, $routeParams, $location) {
+    .controller('RootController', ['$scope', '$route',
+        '$routeParams', '$location', function ($scope, $route, $routeParams, $location) {
         $scope.$on('$routeChangeSuccess', function (e, current, previous) {
             $scope.activeViewPath = $location.path();
         });
     }]);
-
-
-
-
 
 // grab underscore from window (where it attaches itself)
 appRoot.constant('_', window._);
