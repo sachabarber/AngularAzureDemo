@@ -33,10 +33,8 @@ namespace AngularAzureDemo
             container.Install(new WebApiInstaller());
 
 
+            //set IOC resolver
             GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(container);
-
-            
         }
-
     }
 }

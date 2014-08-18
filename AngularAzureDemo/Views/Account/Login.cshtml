@@ -8,7 +8,9 @@
         <br />
         <p>This is a small demo app demonstrating the following technolgies all working together</p>
         <br />
-        <img src="~/Images/banners.png" class="img-responsive" alt="Responsive image">
+        <img src="~/Images/banners.png" 
+             class="img-responsive" 
+             alt="Responsive image">
     </div>
 </div>
 <br />
@@ -22,10 +24,16 @@
             <p>Please pick a user to log in as</p>
             <div class="row">
                 <p class="col-xs-12 col-sm-8 col-md-8">
-                    <select class="form-control" data-ng-options="o.Name for o in usersList" data-ng-model="selectedPerson" ng-disabled="isLoggedIn"></select>
+                    <select class="form-control" 
+                            data-ng-options="o.Name for o in usersList" 
+                            data-ng-model="selectedPerson" 
+                            ng-disabled="isLoggedIn"></select>
                 </p>
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <button type="button" id="btnLogin" class="btn btn-primary" data-ng-click="login()" ng-disabled="isLoggedIn">LOG IN</button>
+                    <button type="button" id="btnLogin" 
+                            class="btn btn-primary" 
+                            data-ng-click="login()" 
+                            ng-disabled="isLoggedIn">LOG IN</button>
                 </div>
             </div>
 
@@ -36,7 +44,11 @@
             <p>You are logged in as : <span ng-bind="selectedPerson.Name"></span></p>
             <div class="row">
                 <p class="col-xs-12 col-sm-4 col-md-4">
-                    <button type="button" id="btnLogout" class="btn btn-primary" data-ng-click="logout()" ng-disabled="!isLoggedIn">LOG OUT</button>
+                    <button type="button" 
+                            id="btnLogout" 
+                            class="btn btn-primary" 
+                            data-ng-click="logout()" 
+                            ng-disabled="!isLoggedIn">LOG OUT</button>
                 </p>
             </div>
         </div>

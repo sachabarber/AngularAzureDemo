@@ -1,5 +1,6 @@
 ﻿// http://weblogs.asp.net/dwahlin/using-an-angularjs-factory-to-interact-with-a-restful-service
-angularAzureDemoServices.service('userService', ['$http', '$window', function ($http, $window) {
+angularAzureDemoServices.service('userService',
+    ['$http', '$window', function ($http, $window) {
     
     var urlBase = '/api/user';
 

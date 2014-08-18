@@ -40,7 +40,8 @@
                 })
                 .error(function (error) {
                     dialogService.hidePleaseWait();
-                    dialogService.showAlert('Error', 'Unable to load friend data: ' + error.message);
+                    dialogService.showAlert('Error',
+                        'Unable to load friend data: ' + error.message);
                 });
         }
 
@@ -54,7 +55,10 @@
                 $log.log('subscription count : ', savedSubscriptions.length);
 
                 for (var i = 0; i < savedSubscriptions.length; i++) {
-                    var friendSubscription = _.findWhere($scope.storedSubscriptions, { Id: savedSubscriptions[i].FriendId });
+                    var friendSubscription = _.findWhere($scope.storedSubscriptions,
+                    {
+                         Id: savedSubscriptions[i].FriendId
+                    });
 
                     if (typeof friendSubscription !== 'undefined' && friendSubscription != null) {
                         friendSubscription.IsActive = true;
@@ -71,7 +75,8 @@
                 dialogService.hidePleaseWait();
             }, function (error) {
                 dialogService.hidePleaseWait();
-                dialogService.showAlert('Error', 'Unable to load subscription data: ' + error.message);
+                dialogService.showAlert('Error',
+                    'Unable to load subscription data: ' + error.message);
 
             });
         }
@@ -111,7 +116,8 @@
                 }
             }, function (error) {
                 dialogService.hidePleaseWait();
-                dialogService.showAlert('Error', 'Unable to save subscription data: ' + error.message);
+                dialogService.showAlert('Error',
+                    'Unable to save subscription data: ' + error.message);
             });
         };
 

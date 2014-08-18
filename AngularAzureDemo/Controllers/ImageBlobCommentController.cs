@@ -19,7 +19,8 @@ namespace AngularAzureDemo.Controllers
         private readonly IImageBlobRepository imageBlobRepository;
         private readonly ImageBlobCommentRepository imageBlobCommentRepository;
 
-        public ImageBlobCommentController(IImageBlobRepository imageBlobRepository, ImageBlobCommentRepository imageBlobCommentRepository)
+        public ImageBlobCommentController(IImageBlobRepository imageBlobRepository, 
+            ImageBlobCommentRepository imageBlobCommentRepository)
         {
             this.imageBlobRepository = imageBlobRepository;
             this.imageBlobCommentRepository = imageBlobCommentRepository;
@@ -70,9 +71,13 @@ namespace AngularAzureDemo.Controllers
                 return new ImageBlobCommentResult() { Comment = null, SuccessfulAdd = false };
 
             // add the imageBlobComment to imageBlobComment storage/table storage
-            var insertedComment = await imageBlobCommentRepository.AddImageBlobComment(imageBlobCommentToSave);
+            var insertedComment = await imageBlobCommentRepository.
+                AddImageBlobComment(imageBlobCommentToSave);
 
-            return new ImageBlobCommentResult() { Comment = insertedComment, SuccessfulAdd = true };
+            return new ImageBlobCommentResult()
+            {
+                Comment = insertedComment, SuccessfulAdd = true
+            };
         }
 
 

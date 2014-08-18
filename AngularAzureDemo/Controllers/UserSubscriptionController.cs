@@ -23,7 +23,6 @@ namespace AngularAzureDemo.Controllers
             this.userSubscriptionRepository = userSubscriptionRepository;
         }
 
-
         // GET api/usersubscription/5
         [System.Web.Http.HttpGet]
         public async Task<UserSubscriptions> Get(int id)
@@ -37,16 +36,12 @@ namespace AngularAzureDemo.Controllers
             UserSubscriptions userSubscriptionsToSave = new UserSubscriptions();
             userSubscriptionsToSave.Subscriptions = subscriptions.ToList();
             return userSubscriptionsToSave;
-            
         }
-
-
 
         // POST api/usersubscription/....
         [System.Web.Http.HttpPost]
         public async Task<bool> Post(UserSubscriptions userSubscriptions)
         {
-       
             var subscriptions = userSubscriptions.Subscriptions;
 
             if (!subscriptions.Any())
@@ -70,11 +65,7 @@ namespace AngularAzureDemo.Controllers
             {
                 await userSubscriptionRepository.AddSubscriptions(subscriptionsToAdd);
             }
-
             return true;
-
         }
-
-
     }
 }

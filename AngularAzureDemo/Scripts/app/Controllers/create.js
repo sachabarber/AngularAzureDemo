@@ -40,7 +40,8 @@
                         dialogService.showAlert('Error','Unable to save image data');
                     }
                 }, function (error) {
-                    dialogService.showAlert('Error', 'Unable to save image data: ' + error.message);
+                    dialogService.showAlert('Error',
+                        'Unable to save image data: ' + error.message);
                 });
             }
         };

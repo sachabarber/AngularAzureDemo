@@ -13,9 +13,12 @@ namespace AngularAzureDemo.IOC
     {
         public void Install(IUnityContainer container)
         {
-            container.RegisterType<IUserSubscriptionRepository, UserSubscriptionRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<IImageBlobRepository, ImageBlobRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<IImageBlobCommentRepository, ImageBlobCommentRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserSubscriptionRepository, UserSubscriptionRepository>(
+                new HierarchicalLifetimeManager());
+            container.RegisterType<IImageBlobRepository, ImageBlobRepository>(
+                new HierarchicalLifetimeManager());
+            container.RegisterType<IImageBlobCommentRepository, ImageBlobCommentRepository>(
+                new HierarchicalLifetimeManager());
         }
     }
 }

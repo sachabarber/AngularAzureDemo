@@ -6,13 +6,17 @@
     <br />
     <div class="well">
         <h2>{{storedBlob.Blob.Title}}</h2>
-        <span class="smallText">Created By:</span><span class="smallText">{{storedBlob.Blob.UserName}}</span>
+        <span class="smallText">Created By:</span>
+        <span class="smallText">{{storedBlob.Blob.UserName}}</span>
         <br/>
-        <span class="smallText">Created On:</span><span class="smallText">{{storedBlob.Blob.CreatedOnPreFormatted}}</span>
+        <span class="smallText">Created On:</span>
+        <span class="smallText">{{storedBlob.Blob.CreatedOnPreFormatted}}</span>
         <div class="row">
             <br/>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <img ng-src="{{storedBlob.Blob.SavedBlobUrl}}" class="img-responsive" alt="Responsive image" />
+                <img ng-src="{{storedBlob.Blob.SavedBlobUrl}}" 
+                     class="img-responsive" 
+                     alt="Responsive image" />
             </div>
 
         </div>
@@ -26,7 +30,9 @@
                 <input type="text" class="form-control" ng-model="commentText">
             </p>
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <button type="button" class="btn btn-primary" data-ng-click="saveComment()" ng-disabled="!hasComment()">ADD</button>
+                <button type="button" class="btn btn-primary" 
+                        data-ng-click="saveComment()" 
+                        ng-disabled="!hasComment()">ADD</button>
             </div>
             <br />
         </div>        

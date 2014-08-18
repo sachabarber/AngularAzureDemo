@@ -1,6 +1,8 @@
 ﻿angular.module('main').controller('ViewSingleImageController',
-    ['$scope', '$log', '$window', '$location', '$routeParams', 'loginService','imageBlobComment','dialogService',
-    function ($scope, $log, $window, $location, $routeParams, loginService, imageBlobComment, dialogService) {
+    ['$scope', '$log', '$window', '$location', '$routeParams',
+        'loginService', 'imageBlobComment', 'dialogService',
+    function ($scope, $log, $window, $location, $routeParams,
+        loginService, imageBlobComment, dialogService) {
 
         $scope.currentUserId = 0;
         if (!loginService.isLoggedIn()) {
@@ -11,7 +13,8 @@
 
 
         $log.log('single controller $scope.currentUserId', $scope.currentUserId);
-        $log.log('single controller loginService.currentlyLoggedInUser().Id', loginService.currentlyLoggedInUser().Id);
+        $log.log('single controller loginService.currentlyLoggedInUser().Id',
+            loginService.currentlyLoggedInUser().Id);
 
 
         $scope.id = $routeParams.id;
@@ -73,14 +76,15 @@
                     $scope.hasItem = true;
                     $scope.storedBlob = result;
 
-                    $log.log("xxxxxx results", result);
                     $log.log("SCOPE BLOB", $scope.storedBlob);
 
                     $scope.isTheirOwnImage = $scope.storedBlob.Blob.UserId == $scope.currentUserId;
 
                     $log.log('single controller $scope.currentUserId', $scope.currentUserId);
-                    $log.log('single controller loginService.currentlyLoggedInUser().Id', loginService.currentlyLoggedInUser().Id);
-                    $log.log('single controller $scope.storedBlob.Blob.UserId', $scope.storedBlob.Blob.UserId);
+                    $log.log('single controller loginService.currentlyLoggedInUser().Id',
+                        loginService.currentlyLoggedInUser().Id);
+                    $log.log('single controller $scope.storedBlob.Blob.UserId',
+                        $scope.storedBlob.Blob.UserId);
 
 
                     dialogService.hidePleaseWait();
@@ -88,7 +92,8 @@
                 }).error(function (error) {
                     $scope.hasItem = false;
                     dialogService.hidePleaseWait();
-                    dialogService.showAlert('Error', 'Unable to load stored image data: ' + error.message);
+                    dialogService.showAlert('Error',
+                        'Unable to load stored image data: ' + error.message);
                 });
         }
 

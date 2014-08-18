@@ -34,7 +34,8 @@ namespace AngularAzureDemo.DomainServices
 
         public ImageBlobCommentRepository()
         {
-            azureStorageConnectionString = ConfigurationManager.AppSettings["azureStorageConnectionString"];
+            azureStorageConnectionString = 
+                ConfigurationManager.AppSettings["azureStorageConnectionString"];
             storageAccount = CloudStorageAccount.Parse(azureStorageConnectionString);
         }
 
@@ -51,11 +52,13 @@ namespace AngularAzureDemo.DomainServices
             }
 
             //http://blog.liamcavanagh.com/2011/11/how-to-sort-azure-table-store-results-chronologically/
-            string rowKeyToUse = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
+            string rowKeyToUse = string.Format("{0:D19}", 
+                DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 
             List<ImageBlobCommentEntity> blobCommentEntities = new List<ImageBlobCommentEntity>();
-            Expression<Func<ImageBlobCommentEntity, bool>> filter = (x) => x.AssociatedBlobId == associatedBlobId &&
-                                                                        x.RowKey.CompareTo(rowKeyToUse) > 0;
+            Expression<Func<ImageBlobCommentEntity, bool>> filter = 
+                (x) =>  x.AssociatedBlobId == associatedBlobId &&
+                        x.RowKey.CompareTo(rowKeyToUse) > 0;
 
             Action<IEnumerable<ImageBlobCommentEntity>> processor = blobCommentEntities.AddRange;
             await this.ObtainBlobCommentEntities(imageBlobCommentsTable, filter, processor);
@@ -94,7 +97,8 @@ namespace AngularAzureDemo.DomainServices
         }
 
 
-        private static List<ImageBlobComment> ProjectToBlobComments(List<ImageBlobCommentEntity> blobCommentEntities)
+        private static List<ImageBlobComment> ProjectToBlobComments(
+            List<ImageBlobCommentEntity> blobCommentEntities)
         {
             var blobComments =
                 blobCommentEntities.Select(
@@ -128,7 +132,8 @@ namespace AngularAzureDemo.DomainServices
                                 .Take(LIMIT_OF_ITEMS_TO_TAKE)
                                 .AsTableQuery();
 
-                segment = await query.ExecuteSegmentedAsync(segment == null ? null : segment.ContinuationToken);
+                segment = await query.ExecuteSegmentedAsync(segment == null ? null : 
+                    segment.ContinuationToken);
                 processor(segment.Results);
             }
 

@@ -20,7 +20,8 @@
                         <tr>
                             <td>{{friendsSubscription.Id}}</td>
                             <td>{{friendsSubscription.Name}}</td>
-                            <td><input type="checkbox" ng-model="friendsSubscription.IsActive"></td>
+                            <td><input type="checkbox" 
+                                       ng-model="friendsSubscription.IsActive"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -28,7 +29,9 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <button type="button" class="btn btn-primary" data-ng-click="updateSubscriptions()">UPDATE SUBSCRIPTIONS</button>
+                <button type="button" 
+                        class="btn btn-primary" 
+                        data-ng-click="updateSubscriptions()">UPDATE SUBSCRIPTIONS</button>
             </div>
         </div>
     </div>

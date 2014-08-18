@@ -31,7 +31,8 @@ namespace AngularAzureDemo.DomainServices
 
         public UserSubscriptionRepository()
         {
-            azureStorageConnectionString = ConfigurationManager.AppSettings["azureStorageConnectionString"];
+            azureStorageConnectionString = 
+                ConfigurationManager.AppSettings["azureStorageConnectionString"];
             storageAccount = CloudStorageAccount.Parse(azureStorageConnectionString);
         }
 
@@ -40,7 +41,8 @@ namespace AngularAzureDemo.DomainServices
         public async Task<bool> AddSubscriptions(IEnumerable<UserSubscription> subscriptionsToAdd)
         {
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudTable userSubscriptionsTable = tableClient.GetTableReference("userSubscriptions");
+            CloudTable userSubscriptionsTable = 
+                tableClient.GetTableReference("userSubscriptions");
 
             var tableExists = await userSubscriptionsTable.ExistsAsync();
             if (!tableExists)
@@ -72,9 +74,11 @@ namespace AngularAzureDemo.DomainServices
             }
 
             List<UserSubscriptionEntity> activeUserSubscriptionEntities = new List<UserSubscriptionEntity>();
-            Expression<Func<UserSubscriptionEntity, bool>> filter = (x) => x.PartitionKey == userId.ToString();
+            Expression<Func<UserSubscriptionEntity, bool>> filter = 
+                (x) => x.PartitionKey == userId.ToString();
             
-            Action<IEnumerable<UserSubscriptionEntity>> processor = activeUserSubscriptionEntities.AddRange;
+            Action<IEnumerable<UserSubscriptionEntity>> processor = 
+                activeUserSubscriptionEntities.AddRange;
 
             await ObtainUserSubscriptionEntities(userSubscriptionsTable, filter, processor);
 
@@ -101,7 +105,8 @@ namespace AngularAzureDemo.DomainServices
             }
 
             List<UserSubscriptionEntity> activeUserSubscriptionEntities = new List<UserSubscriptionEntity>();
-            Expression<Func<UserSubscriptionEntity, bool>> filter = (x) => x.PartitionKey == subscriptionsToRemove.First().UserId.ToString();
+            Expression<Func<UserSubscriptionEntity, bool>> filter = 
+                (x) => x.PartitionKey == subscriptionsToRemove.First().UserId.ToString();
 
             Action<IEnumerable<UserSubscriptionEntity>> processor = activeUserSubscriptionEntities.AddRange;
 
@@ -144,7 +149,8 @@ namespace AngularAzureDemo.DomainServices
                                 .Where(filter)
                                 .AsTableQuery();
 
-                segment = await query.ExecuteSegmentedAsync(segment == null ? null : segment.ContinuationToken);
+                segment = await query.ExecuteSegmentedAsync(segment == null ? 
+                    null : segment.ContinuationToken);
                 processor(segment.Results);
             }
 

@@ -1,6 +1,7 @@
 ﻿appRoot.controller('LoginController', ['$scope', '$log', '$location', '$resource',
     '$window', 'loginService', 'dialogService','userService', '_',
-    function ($scope, $log, $location, $resource, $window, loginService, dialogService, userService, _) {
+    function ($scope, $log, $location, $resource, $window,
+        loginService, dialogService, userService, _) {
 
         $scope.usersList = [];
         $scope.selectedPerson = null;
@@ -25,7 +26,8 @@
         };
 
         function getPersonFromList(userName) {
-            $scope.selectedPerson = _.findWhere($scope.usersList, { Name: userName });
+            $scope.selectedPerson = _.findWhere($scope.usersList,
+                { Name: userName });
         }
 
         function getAllPeople() {

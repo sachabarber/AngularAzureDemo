@@ -34,7 +34,8 @@ namespace AngularAzureDemo.DomainServices
 
         public ImageBlobRepository()
         {
-            string azureStorageConnectionString = ConfigurationManager.AppSettings["azureStorageConnectionString"];
+            string azureStorageConnectionString = 
+                ConfigurationManager.AppSettings["azureStorageConnectionString"];
             storageAccount = CloudStorageAccount.Parse(azureStorageConnectionString);
         }
 
@@ -49,13 +50,15 @@ namespace AngularAzureDemo.DomainServices
             List<ImageBlob> imageBlobs = new List<ImageBlob>();
 
             //http://blog.liamcavanagh.com/2011/11/how-to-sort-azure-table-store-results-chronologically/
-            string rowKeyToUse = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
+            string rowKeyToUse = string.Format("{0:D19}", 
+                DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 
             foreach (var user in users)
             {
                 List<ImageBlobEntity> imageBlobEntities = new List<ImageBlobEntity>();
-                Expression<Func<ImageBlobEntity, bool>> filter = (x) => x.PartitionKey == user.Id.ToString() &&
-                                                                        x.RowKey.CompareTo(rowKeyToUse) > 0;
+                Expression<Func<ImageBlobEntity, bool>> filter = 
+                    (x) =>  x.PartitionKey == user.Id.ToString() &&
+                            x.RowKey.CompareTo(rowKeyToUse) > 0;
 
                 Action<IEnumerable<ImageBlobEntity>> processor = imageBlobEntities.AddRange;
                 await ObtainImageBlobEntities(tableModel.Table, filter, processor);
@@ -81,8 +84,9 @@ namespace AngularAzureDemo.DomainServices
             string rowKeyToUse = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 
             List<ImageBlobEntity> imageBlobEntities = new List<ImageBlobEntity>();
-            Expression<Func<ImageBlobEntity, bool>> filter = (x) => x.PartitionKey == userId.ToString() &&
-                                                                        x.RowKey.CompareTo(rowKeyToUse) > 0;
+            Expression<Func<ImageBlobEntity, bool>> filter = 
+                (x) =>  x.PartitionKey == userId.ToString() &&
+                        x.RowKey.CompareTo(rowKeyToUse) > 0;
 
             Action<IEnumerable<ImageBlobEntity>> processor = imageBlobEntities.AddRange;
             await ObtainImageBlobEntities(tableModel.Table, filter, processor);
@@ -213,7 +217,8 @@ namespace AngularAzureDemo.DomainServices
                                 .Take(LIMIT_OF_ITEMS_TO_TAKE)
                                 .AsTableQuery();
 
-                segment = await query.ExecuteSegmentedAsync(segment == null ? null : segment.ContinuationToken);
+                segment = await query.ExecuteSegmentedAsync(
+                    segment == null ? null : segment.ContinuationToken);
                 processor(segment.Results);
             }
 

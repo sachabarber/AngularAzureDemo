@@ -18,7 +18,8 @@
                 $scope.storedBlobs = [];
                 if (result.BlobComments.length == 0) {
                     dialogService.hidePleaseWait();
-                    dialogService.showAlert('Info', 'There are no items stored right now');
+                    dialogService.showAlert('Info',
+                        'There are no items stored right now');
                     $scope.hasItems = false;
                 } else {
                     $scope.hasItems = true;
@@ -28,7 +29,8 @@
             }, function (error) {
                 $scope.hasItems = false;
                 dialogService.hidePleaseWait();
-                dialogService.showAlert('Error', 'Unable to load stored image data: ' + error.message);
+                dialogService.showAlert('Error',
+                    'Unable to load stored image data: ' + error.message);
             });
         }
     }]);
